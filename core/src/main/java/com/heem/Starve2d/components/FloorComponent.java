@@ -8,6 +8,7 @@ import java.util.Vector;
 public class FloorComponent implements Component {
     public int x, y;
     public int[][] map;
+    public boolean needDraw = false;
 
     public FloorComponent(int x, int y, int[][] map){
         this.x = x;

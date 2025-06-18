@@ -44,17 +44,18 @@ public class RenderSystem extends EntitySystem {
 
     @Override
     public void update(float deltaTime) {
-
-//        camera.project(camera.position);
         camera.update();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         for (int i = 0; i < floors.size(); i++) {
+            if (!floors.get(i).getComponent(FloorComponent.class).needDraw)
+                continue;
             int[][] map = floors.get(i).getComponent(FloorComponent.class).map;
             for (int y = 0; y < map.length; y++){
                 for (int x = 0; x < map[y].length; x++) {
                     Texture texture = FloorFactory.getTextureOfIndex(map[y][x]);
-                    drawFloor(texture, x, y);
+                    drawFloor(texture, floors.get(i).getComponent(FloorComponent.class).x * 1000 + x * 100,
+                        floors.get(i).getComponent(FloorComponent.class).y * 1000 + y * 100);
                 }
             }
         }
@@ -66,15 +67,10 @@ public class RenderSystem extends EntitySystem {
     }
 
     private void drawSprite(Sprite sprite){
-        batch.draw(new TextureRegion(sprite.getTexture()),
-            sprite.getX(), sprite.getY(),
-            sprite.getOriginX(), sprite.getOriginY(),
-            sprite.getWidth(), sprite.getHeight(),
-            sprite.getScaleX(), sprite.getScaleY(),
-            sprite.getRotation());
+        sprite.draw(batch);
     }
 
     private void drawFloor(Texture texture, int x, int y) {
-        batch.draw(texture, x * 100, y * 100, 100, 100);
+        batch.draw(texture, x, y, 100, 100);
     }
 }

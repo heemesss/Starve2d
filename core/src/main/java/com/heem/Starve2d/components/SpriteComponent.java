@@ -9,4 +9,5 @@ public class SpriteComponent implements Component {
     public SpriteComponent(Sprite sprite) {
         this.sprite = sprite;
     }
+    public SpriteComponent(){};
 }
