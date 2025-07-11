@@ -2,15 +2,18 @@ package com.heem.Starve2d.screens;
 
 import com.badlogic.gdx.Screen;
 import com.heem.Starve2d.Core;
+import com.heem.Starve2d.UI.GameUI;
 import com.heem.Starve2d.worlds.GameWorld;
 
 /** First screen of the application. Displayed after the application is created. */
 public class FirstScreen implements Screen {
     private Core game;
     private GameWorld gameWorld;
+    private GameUI gameUI;
 
     public FirstScreen(Core game) {
         this.game = game;
+        gameUI = new GameUI(game);
     }
 
     @Override
@@ -18,15 +21,17 @@ public class FirstScreen implements Screen {
         gameWorld = new GameWorld();
         // Prepare your screen here.
     }
-
     @Override
     public void render(float delta) {
         gameWorld.render(delta);
+        gameUI.update();
+        gameUI.render();
         // Draw your screen here. "delta" is the time since last render in seconds.
     }
 
     @Override
     public void resize(int width, int height) {
+        gameWorld.resize(width, height);
         // Resize your screen here. The parameters represent the new window size.
     }
 

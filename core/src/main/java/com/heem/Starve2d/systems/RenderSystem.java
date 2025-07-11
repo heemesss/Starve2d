@@ -16,6 +16,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.heem.Starve2d.Core;
+import com.heem.Starve2d.components.CellComponent;
 import com.heem.Starve2d.components.FloorComponent;
 import com.heem.Starve2d.components.SpriteComponent;
 import com.heem.Starve2d.managers.FloorFactory;
@@ -27,13 +28,15 @@ public class RenderSystem extends EntitySystem {
     private SpriteBatch batch;
     public OrthographicCamera camera;
     private ImmutableArray<Entity> entities, floors;
+    private FitViewport fitViewport;
 
     public RenderSystem(){
         camera = new OrthographicCamera();
         camera.viewportWidth = Core.SCREEN_WIDTH;
         camera.viewportHeight = Core.SCREEN_HEIGHT;
         batch = new SpriteBatch();
-        new Stage().draw();
+        fitViewport = new FitViewport(Core.SCREEN_WIDTH, Core.SCREEN_HEIGHT, camera);
+        fitViewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 
     @Override
@@ -44,16 +47,17 @@ public class RenderSystem extends EntitySystem {
 
     @Override
     public void update(float deltaTime) {
+        fitViewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.update();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         for (int i = 0; i < floors.size(); i++) {
             if (!floors.get(i).getComponent(FloorComponent.class).needDraw)
                 continue;
-            int[][] map = floors.get(i).getComponent(FloorComponent.class).map;
+            Entity[][] map = floors.get(i).getComponent(FloorComponent.class).map;
             for (int y = 0; y < map.length; y++){
                 for (int x = 0; x < map[y].length; x++) {
-                    Texture texture = FloorFactory.getTextureOfIndex(map[y][x]);
+                    Texture texture = FloorFactory.getTextureOfIndex(map[y][x].getComponent(CellComponent.class).number);
                     drawFloor(texture, floors.get(i).getComponent(FloorComponent.class).x * 1000 + x * 100,
                         floors.get(i).getComponent(FloorComponent.class).y * 1000 + y * 100);
                 }
@@ -72,5 +76,10 @@ public class RenderSystem extends EntitySystem {
 
     private void drawFloor(Texture texture, int x, int y) {
         batch.draw(texture, x, y, 100, 100);
+    }
+
+    public void resize(int width, int height) {
+        camera.viewportHeight = height;
+        camera.viewportWidth = width;
     }
 }

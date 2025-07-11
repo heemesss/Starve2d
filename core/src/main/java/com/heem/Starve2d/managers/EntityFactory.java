@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.heem.Starve2d.components.FloorComponent;
+import com.heem.Starve2d.components.ItemComponent;
 import com.heem.Starve2d.components.PlayerComponent;
 import com.heem.Starve2d.components.SpriteComponent;
 
@@ -31,6 +32,19 @@ public class EntityFactory {
         Array<TextureRegion> walkDown = new Array<>(4);
         walkDown.addAll(TextureRegion.split(new Texture("walkdown.gif"), 16, 16)[0]);
         playerComponent.walkDown = new Animation<>(0.1f, walkDown, Animation.PlayMode.LOOP);
+
+        Array<TextureRegion> idle = new Array<>(4);
+        idle.addAll(TextureRegion.split(new Texture("idle.gif"), 16, 16)[0]);
+        playerComponent.idle = new Animation<>(0.5f, idle, Animation.PlayMode.LOOP);
+
+        Array<TextureRegion> idleSide = new Array<>(4);
+        idleSide.addAll(TextureRegion.split(new Texture("idleside.gif"), 16, 16)[0]);
+        playerComponent.idleSide = new Animation<>(0.5f, idleSide, Animation.PlayMode.LOOP);
+
+        Array<TextureRegion> idleUp = new Array<>(4);
+        idleUp.addAll(TextureRegion.split(new Texture("idleup.gif"), 16, 16)[0]);
+        playerComponent.idleUp = new Animation<>(0.5f, idleUp, Animation.PlayMode.LOOP);
+
         return player;
     }
 
@@ -42,5 +56,19 @@ public class EntityFactory {
                 engine.addEntity(floor);
             }
         }
+    }
+
+    public static void createItemsForHand(Engine engine) {
+        Entity entity = new Entity();
+        SpriteComponent spriteComponent = entity.addAndReturn(new SpriteComponent(new Sprite(new Texture("pickaxe.gif"))));
+        spriteComponent.sprite.setBounds((float) -1e9, (float) -1e9, 100, 100);
+        entity.add(new ItemComponent(true));
+        engine.addEntity(entity);
+
+        entity = new Entity();
+        spriteComponent = entity.addAndReturn(new SpriteComponent(new Sprite(new Texture("axe.gif"))));
+        spriteComponent.sprite.setBounds((float) -1e9, (float) -1e9, 100, 100);
+        entity.add(new ItemComponent(false));
+        engine.addEntity(entity);
     }
 }

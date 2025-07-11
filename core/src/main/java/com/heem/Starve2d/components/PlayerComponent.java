@@ -9,4 +9,9 @@ public class PlayerComponent implements Component {
     public Animation<TextureRegion> walk;
     public Animation<TextureRegion> walkUp;
     public Animation<TextureRegion> walkDown;
+    public Animation<TextureRegion> idle;
+    public Animation<TextureRegion> idleSide;
+    public Animation<TextureRegion> idleUp;
+
+    public int rightHand = 0;
 }
