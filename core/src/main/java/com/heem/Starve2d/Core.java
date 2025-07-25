@@ -8,9 +8,9 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.heem.Starve2d.screens.FirstScreen;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
-public class Core extends Game {
-    public static final int SCREEN_WIDTH = 1280, SCREEN_HEIGHT = 720;
-    private Screen screen;
+public class Core extends Game { // это основная параша, отвечает за логику смены экранов
+    public static final int SCREEN_WIDTH = 1280, SCREEN_HEIGHT = 720; // экран
+    private Screen screen; // текущий screen
 
     @Override
     public void create() {
@@ -19,12 +19,12 @@ public class Core extends Game {
 
     @Override
     public void render() {
-        ScreenUtils.clear(Color.CLEAR);
-        screen.render(Gdx.graphics.getDeltaTime());
+        ScreenUtils.clear(Color.CLEAR); // очистка
+        screen.render(Gdx.graphics.getDeltaTime()); //render
     }
 
     @Override
-    public void setScreen(Screen screen) {
+    public void setScreen(Screen screen) { // меняем скрин
         if (this.screen != null) {
             this.screen.hide();
             this.screen.dispose();

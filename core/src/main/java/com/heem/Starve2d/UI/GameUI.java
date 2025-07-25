@@ -10,16 +10,16 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.heem.Starve2d.Core;
 
-public class GameUI extends ClickListener {
+public class GameUI extends ClickListener { // это интерфейс
     private Core game;
-    private Stage stage;
+    private Stage stage; // тут отрисовка
 
-    private InventoryWidget inventoryWidget;
+    private InventoryWidget inventoryWidget; // все виджеты - актёры, чтобы можно было на сцену доб
 
     public GameUI(Core game) {
         this.game = game;
         stage = new Stage(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
-        setWidgets();
+        setWidgets(); // это для красоты
         Gdx.input.setInputProcessor(stage);
     }
 

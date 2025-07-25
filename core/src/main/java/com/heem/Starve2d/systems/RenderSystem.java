@@ -36,28 +36,28 @@ public class RenderSystem extends EntitySystem {
         camera.viewportHeight = Core.SCREEN_HEIGHT;
         batch = new SpriteBatch();
         fitViewport = new FitViewport(Core.SCREEN_WIDTH, Core.SCREEN_HEIGHT, camera);
-        fitViewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        fitViewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()); // не помню, нафиг разделил
     }
 
     @Override
     public void addedToEngine(Engine engine) {
-        entities = engine.getEntitiesFor(Family.all(SpriteComponent.class).get());
-        floors = engine.getEntitiesFor(Family.all(FloorComponent.class).get());
+        entities = engine.getEntitiesFor(Family.all(SpriteComponent.class).get()); // все сущности с Sprite Component
+        floors = engine.getEntitiesFor(Family.all(FloorComponent.class).get()); // все сущности с Floor Component
     }
 
     @Override
     public void update(float deltaTime) {
-        fitViewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        fitViewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()); // эту парашу я точно прерпишу
         camera.update();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         for (int i = 0; i < floors.size(); i++) {
-            if (!floors.get(i).getComponent(FloorComponent.class).needDraw)
+            if (!floors.get(i).getComponent(FloorComponent.class).needDraw) // если нужно рисовать
                 continue;
             Entity[][] map = floors.get(i).getComponent(FloorComponent.class).map;
             for (int y = 0; y < map.length; y++){
                 for (int x = 0; x < map[y].length; x++) {
-                    Texture texture = FloorFactory.getTextureOfIndex(map[y][x].getComponent(CellComponent.class).number);
+                    TextureRegion texture = FloorFactory.getTextureOfIndex(map[y][x].getComponent(CellComponent.class).number);
                     drawFloor(texture, floors.get(i).getComponent(FloorComponent.class).x * 1000 + x * 100,
                         floors.get(i).getComponent(FloorComponent.class).y * 1000 + y * 100);
                 }
@@ -74,7 +74,7 @@ public class RenderSystem extends EntitySystem {
         sprite.draw(batch);
     }
 
-    private void drawFloor(Texture texture, int x, int y) {
+    private void drawFloor(TextureRegion texture, int x, int y) {
         batch.draw(texture, x, y, 100, 100);
     }
 

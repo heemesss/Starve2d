@@ -16,8 +16,8 @@ public class EntityFactory {
 
     public static Entity createPlayer(){
         Entity player = new Entity();
-        PlayerComponent playerComponent = player.addAndReturn(new PlayerComponent());
-        SpriteComponent spriteComponent = player.addAndReturn(new SpriteComponent(new Sprite(new Texture("hero.gif"))));
+        PlayerComponent playerComponent = player.addAndReturn(new PlayerComponent()); // добавляем компонент
+        SpriteComponent spriteComponent = player.addAndReturn(new SpriteComponent(new Sprite(new Texture("hero.gif")))); // добавляем компонент
         spriteComponent.sprite.setBounds(0, 0, 100, 100);
 
 

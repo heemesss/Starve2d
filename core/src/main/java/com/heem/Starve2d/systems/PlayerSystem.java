@@ -125,13 +125,13 @@ public class PlayerSystem extends EntitySystem implements EntityListener {
         if (timeRight < 0){
 
             if (Objects.equals(side, "Side") && flipX){
-                rightHand.getComponent(SpriteComponent.class).sprite.setRotation(180);
+                rightHand.getComponent(SpriteComponent.class).sprite.setRotation(225);
             } else if (Objects.equals(side, "Up")){
-                rightHand.getComponent(SpriteComponent.class).sprite.setRotation(90);
+                rightHand.getComponent(SpriteComponent.class).sprite.setRotation(135);
             } else if (Objects.equals(side, "Side") && !flipX){
-                rightHand.getComponent(SpriteComponent.class).sprite.setRotation(0);
+                rightHand.getComponent(SpriteComponent.class).sprite.setRotation(45);
             } else if (Objects.equals(side, "Down")) {
-                rightHand.getComponent(SpriteComponent.class).sprite.setRotation(-90);
+                rightHand.getComponent(SpriteComponent.class).sprite.setRotation(-45);
             }
             timeRight = 0.5f;
         }

@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class InventoryWidget extends Actor {
+public class InventoryWidget extends Actor { // наследуем, чтобы можно было на Stage
     private Texture texture = new Texture("window.png");
     public static final int SIZE = 50;
 

@@ -13,5 +13,5 @@ public class PlayerComponent implements Component {
     public Animation<TextureRegion> idleSide;
     public Animation<TextureRegion> idleUp;
 
-    public int rightHand = 0;
+    public int rightHand = 0; // анимация всякая
 }
